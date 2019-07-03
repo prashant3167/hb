@@ -1,0 +1,104 @@
+{
+    "configuration" : {
+        "@" : {
+            "junos:changed-seconds" : "1561514449", 
+            "junos:changed-localtime" : "2019-06-26 02:00:49 UTC"
+        }, 
+        "iceberg" : {
+            "topic" : [
+            {
+                "topic-name" : "external", 
+                "rule" : [
+                {
+                    "rule-name" : "fw-filter-tbt", 
+                    "keys" : ["fw_ct_name"],
+                    "rule-frequency" : "2s", 
+                    "function" : [
+                    {
+                        "function-name" : "generic_bytes_to_bps", 
+                        "description" : "Convert bytes to bits per second", 
+                        "path" : "generic-bytes-to-bps.py", 
+                        "method" : "bytes_to_bps", 
+                        "argument" : [
+                        {
+                            "argument-name" : "bytes_counter", 
+                            "mandatory" : [null]
+                        }, 
+                        {
+                            "argument-name" : "index_name", 
+                            "mandatory" : [null]
+                        }
+                        ]
+                    }
+                    ], 
+                    "sensor" : [
+                    {
+                        "sensor-name" : "fw_filter_stats", 
+                        "native-gpb" : {
+                            "sensor-name" : "jnpr_firewall_ext", 
+                            "port" : 60000
+                        }
+                    }
+                    ], 
+                    "field" : [
+                    {
+                        "field-name" : "fw_ct_bps", 
+                        "formula" : {
+                            "user-defined-function" : {
+                                "function-name" : "generic_bytes_to_bps", 
+                                "argument" : [
+                                {
+                                    "argument" : "index_name", 
+                                    "value" : "$fw_ct_name"
+                                }, 
+                                {
+                                    "argument" : "bytes_counter", 
+                                    "value" : "$fw_ct_bytes"
+                                }
+                                ]
+                            }
+                        }, 
+                        "type" : "integer", 
+                        "description" : "Traffic rate hitting the counter"
+                    }, 
+                    {
+                        "field-name" : "fw_ct_bytes", 
+                        "sensor" : [
+                        {
+                            "sensor-name" : "fw_filter_stats", 
+                            "path" : "firewall_stats.counter_stats.bytes"
+                        }
+                        ], 
+                        "type" : "integer", 
+                        "description" : "Number of bytes that hit the firewall filter counter"
+                    }, 
+                    {
+                        "field-name" : "fw_ct_name", 
+                        "sensor" : [
+                        {
+                            "sensor-name" : "fw_filter_stats", 
+                            "path" : "firewall_stats.counter_stats.name"
+                        }
+                        ], 
+                        "type" : "string", 
+                        "description" : "Firewall filter counter name"
+                    }, 
+                    {
+                        "field-name" : "fw_ct_packets", 
+                        "sensor" : [
+                        {
+                            "sensor-name" : "fw_filter_stats", 
+                            "path" : "firewall_stats.counter_stats.packets"
+                        }
+                        ], 
+                        "type" : "integer", 
+                        "description" : "Number of packets that hit the firewall filter counter"
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        }
+    }
+}

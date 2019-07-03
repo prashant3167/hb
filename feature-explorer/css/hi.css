@@ -1,0 +1,703 @@
+html,
+body {
+    min-height: 100%;
+    color: black;
+    overflow: auto;
+}
+
+body {
+    scrollbar-width: none;
+    height: 100%;
+    padding-bottom: 0px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    /* remove scrollbar space */
+    background: transparent;
+}
+
+.col-3,
+.col-9 {
+    direction: ltr;
+    font-size: 1.3rem;
+}
+
+.col-3 form,
+.col-4 div {
+    direction: ltr;
+    position: relative;
+    top: 1rem;
+    margin-right: 4%;
+}
+
+.option_div::-webkit-scrollbar,
+.col-3::-webkit-scrollbar,
+tbody::-webkit-scrollbar,
+.col-9::-webkit-scrollbar {
+    width: 5px;
+}
+
+.col-3 h3 {
+    text-align: left;
+    padding-top: 1%;
+    padding-bottom: 2%;
+    color:#708810
+}
+
+/* Track */
+.option_div::-webkit-scrollbar-track,
+.col-3::-webkit-scrollbar-track,
+tbody::-webkit-scrollbar-track,
+.col-9::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 10px #dbe0de;
+    border-radius: 10px;
+}
+
+/* Handle */
+.option_div::-webkit-scrollbar-thumb,
+.col-3::-webkit-scrollbar-thumb,
+tbody::-webkit-scrollbar-thumb,
+.col-9::-webkit-scrollbar-thumb {
+    background: #dbdbdb;
+    border-radius: 10px;
+}
+
+h4 {
+    font-size: 1.3rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    padding: 0.2rem;
+    margin-bottom: 0px;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+a {
+    color: white;
+}
+
+.table_row th {
+    border-width: 0px;
+}
+
+tbody:before {
+    content: none !important;
+}
+
+.col-9 {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 100%;
+    /*padding: 0vw;*/
+}
+
+#special_row {
+    overflow-y: scroll;
+    margin-left: 0px;
+    height: calc(100% - 211px);
+}
+
+.col-9 h3 {
+    text-align: center;
+    /*background-image: linear-gradient(to top, rgb(35, 106, 164), rgb(35, 152, 164));
+*/
+    color: black;
+    position: inherit;
+    top: 2%;
+    padding-bottom: 1.5rem;
+}
+
+.button,
+.btn {
+    padding: 0.3rem 1.5rem;
+    font-size: 1vw;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: black;
+    background-color: white;
+    border: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.1rem rgb(56, 67, 71);
+}
+
+.button:hover {
+    background-color: grey;
+    color: black;
+}
+
+
+.button:active {
+    color: black;
+    background-color: white;
+    outline: none;
+}
+
+.option table {
+    border: 0px;
+    background-color: rgba(0, 0, 0, .05);
+}
+
+#btn1 {
+    padding: 0.3rem 1.5rem;
+    font-size: 1vw;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    outline: none !important;
+    color: white;
+    background-color: #708810;
+    border: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.1rem rgb(56, 67, 71);
+}
+
+#btn1:hover {
+    color: white;
+    background-color: grey;
+}
+
+#btn1:active {
+    color: black;
+    background-color: white;
+    outline: none;
+}
+
+#export_button {
+    padding: 0.3rem 1.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: black;
+    background-color: #f1f1f1;
+    border: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.1rem rgb(56, 67, 71);
+}
+
+#export_button:hover {
+    background-color: grey;
+}
+
+#upload_files {
+    float: right;
+    cursor: pointer;
+    color: #708810;
+}
+
+#upload_files:hover {
+    color: black;
+}
+
+#files {
+    display: none;
+}
+
+.fa-upload {
+    font-size: 1.5rem;
+}
+
+#export_button:active {
+    color: black;
+    background-color: white;
+    outline: none;
+}
+
+#clear_button {
+    padding: 0.3rem 1.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+    cursor: pointer;
+    outline: none !important;
+    color: black;
+    background-color: #f1f1f1;
+    border: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.1rem rgb(56, 67, 71);
+}
+
+#clear_button:hover {
+    background-color: grey;
+}
+
+#clear_button:active {
+    color: black;
+    background-color: white;
+    outline: none;
+}
+
+input[disabled] {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+input {
+    background-color: white;
+    color: black;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #e0e2e5;
+    opacity: 1;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #e0e2e5;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #e0e2e5;
+}
+
+.black_overlay {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+}
+
+.white_content {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 35%;
+    width: 40%;
+    height: 50%;
+    padding: 2vw;
+    border: 2vw solid #708810;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+}
+
+
+
+/* for tool tip*/
+[data-tooltip] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 10%;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 60;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+    position: absolute;
+    top: 150%;
+    left: 50%;
+    width: 60px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: white;
+    background-color: white;
+    color: black;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 10px;
+    opacity: inherit;
+    line-height: 1.2;
+}
+
+
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    visibility: visible;
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=10);
+    opacity: 10;
+}
+
+td,
+table,
+tr,
+thead,
+th {
+    border-spacing: 0px;
+    font-size: 1.2rem;
+    border-width: 0px;
+}
+
+th {
+    background-color: #708810;
+    padding: 0.2rem;
+}
+
+.option_div tr td {
+    padding: 0.5rem;
+}
+
+thead td {
+    padding: 0px;
+}
+
+#calculate_help li,
+#calculated_help b {
+    list-style: disc !important;
+    font-size: smaller;
+
+}
+
+div.tableContainer {
+    clear: both;
+    overflow: auto;
+    width: inherit;
+}
+
+/* Reset overflow value to hidden for all non-IE browsers. */
+div.tableContainer {
+    overflow: hidden;
+    height: 100%;
+}
+
+*/ div.tableContainer table {
+    height: inherit;
+}
+
+
+thead.fixedHeader tr {
+    position: relative;
+}
+
+
+tbody.scrollContent {
+    display: block;
+    height: inherit;
+    ;
+    overflow: auto;
+    width: inherit
+}
+
+thead.fixedHeader {
+    display: table;
+    overflow: auto;
+    width: 100%
+}
+
+
+
+
+div.tableContainer table tr:nth-child(even) {
+    background-color: #cfcfd1;
+    color: black;
+}
+
+div.tableContainer table thead {
+    background-color: red;
+    font-size: 1.6rem;
+    border-width: 0px !important;
+    background-color: #84b135 !important;
+    top: 0;
+    color: white;
+    column-fill: auto;
+}
+
+div.tableContainer table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+    border-width: medium;
+}
+
+div.tableContainer table thead tr {
+    background-color: red;
+    position: sticky;
+    top: 0;
+    font-size: 1.2rem background-color: #2286a3;
+    top: 0;
+    color: white;
+    column-fill: auto;
+}
+
+div.tableContainer table tr td {
+    text-align: center;
+}
+
+div.tableContainer table tr:nth-child(odd) td:nth-child(8),
+div.tableContainer table tr:nth-child(odd) td:nth-child(6),
+div.tableContainer table tr:nth-child(odd) td:nth-child(7) {
+    background-color: #dbe0de;
+    /*        text-decoration-color: aliceblue;*/
+    color: black;
+}
+
+div.tableContainer table tr:nth-child(even) td:nth-child(8),
+div.tableContainer table tr:nth-child(even) td:nth-child(6),
+div.tableContainer table tr:nth-child(even) td:nth-child(7) {
+    background-color: #b7b9bc;
+    color: white;
+}
+
+div.tableContainer table tr td {
+    padding: 0.2rem;
+}
+
+div.tableContainer table {
+    height: 94%;
+}
+
+div.tableContainer table body:before {
+    line-height: 1rem;
+    content: "\200C";
+    display: block;
+}
+
+body div#prashant ul li {
+    list-style: disc;
+    margin-left: 10%;
+}
+
+body div#prashant ol li {
+    list-style: decimal;
+    margin-left: 10%;
+}
+
+#custom_table tbody tr {
+    display: inline-flex;
+    background-color: white;
+}
+
+#option_table tbody tr {
+    display: flex;
+    background-color: white;
+}
+
+
+#conf_table tr {
+    display: flex;
+}
+
+#calculated_help li {
+    font-size: 1.3rem;
+}
+
+.summary h3 {
+    padding: 0px;
+}
+
+.col-3 .row {
+    height: auto;
+}
+
+.row::before,
+.row::after {
+    display: table;
+    display: inline-block;
+    content: ' ';
+}
+
+row::after {
+    clear: both;
+}
+
+td {
+    padding: 0.4rem;
+}
+
+input[type=email],
+input[type=text],
+textarea {
+    border: 1px solid #ccc;
+    padding: .3rem;
+    outline: none;
+    border-radius: 3px;
+}
+
+footer {
+    margin-top: 0px;
+    position: static;
+}
+
+.col-3 {
+    background-color: #f1f1f1;
+    overflow-y: scroll;
+    margin: 0px;
+    background-color: #f1f1f1;
+}
+
+.col-3 .option_table_div,
+.col-3 .custom_table_div {
+    position: relative;
+    height: 15rem;
+    margin-right: 0rem;
+    margin-bottom: 15px;
+}
+
+.col-3 .option_table_div table,
+.col-3 .custom_table_div table {
+    width: 100%;
+    margin-right: inherit
+}
+
+.col-3 .custom_table_div {
+    height: 10rem;
+}
+
+.col-3 .option_table_div tbody {
+    height: 13rem;
+}
+
+.col-3 .custom_table_div tbody {
+    height: 8rem;
+    background-color: white;
+}
+
+.col-3 .remove-custom-div {
+    text-align: center;
+    width: 50%;
+    position: absolute;
+    left: 20%;
+    top: 50%;
+}
+
+.col-3 .remove-custom-div h5 {
+    text-align: center;
+    color: #708810;
+    margin-left: 5%;
+}
+
+.fa-question-circle {
+    color: white;
+}
+
+.fa-info-circle {
+    text-align: right;
+    position: absolute;
+    right: 0vw;
+    font-size: 2.5rem;
+    margin: 0.1em;
+    color: #708810;
+}
+
+.col-9 #clear_button {
+    position: absolute;
+    top: 2%;
+    left: 1%;
+    height: auto;
+}
+
+.col-9 #export_button {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    height: auto
+}
+
+.col-9 .tableContainer {
+    position: relative;
+    height: 30rem;
+    top: 3%
+}
+
+.col-9 .tableContainer tbody {
+    height: 28rem;
+}
+
+.col-9 .remove-div {
+    text-align: center;
+    width: 50%;
+    position: absolute;
+    left: 20%;
+    top: 20%;
+}
+
+.col-9 .remove-div b {
+    color: #708810;
+    text-align: center;
+}
+
+#sizing {
+    padding: 0vw;
+    position: relative;
+    min-height: 400px;
+    margin: 0px
+}
+
+#sizing .fa-times {
+    color: red;
+}
+
+.col-9 .remove-div h3 {
+    text-align: center;
+    color: #708810;
+    margin-left: 5%;
+    position: relative;
+}
+
+.col-9 .remove-div ol {
+    margin-left: 5% !important;
+    color: grey;
+    text-align: left;
+    background-color: #f1f1f1;
+    padding: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    border-radius: 10px;
+}
+
+.col-9 .summary {
+    margin-bottom: 0px;
+    margin-top: 1rem;
+    position: absolute;
+    bottom: 3px;
+    width:100%
+}
+
+.col-9 .summary table#summary {
+    width: 100%;
+    font-size: 1.0rem;
+    bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.size_table th {
+    text-align: center;
+}
+
+.col-form-label {
+    overflow: hidden;
+    padding-right: 0vw;
+}
+
+
+.browser_Support {
+        align-self: center;
+        margin: 0 auto;
+        position: relative;
+        padding: 10px;
+        border-radius: 5px;
+        color: rgb(128, 128, 128);
+        background-color: #f1f1f1;
+}

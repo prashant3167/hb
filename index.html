@@ -1,0 +1,406 @@
+ <?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml">
+
+ <head>
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <link rel="icon" href="./images/juniper.png" type="image/x-icon" />
+     <link rel="stylesheet" href="./feature-explorer/css/jquery.confirm.min.css" />
+     <link rel="stylesheet" href="./feature-explorer/css/popover.min.css" />
+     <link rel="stylesheet" href="./feature-explorer/css/fe.css?ver=1.1.9" type="text/css" media="all" />
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+     <link rel="icon" href="https://apps.juniper.net/hb-sizing/images/juniper.png" type="image/png" />
+     <title>Healthbot Server Sizing Calculator - Juniper Networks</title>
+
+     <script type="text/javascript">
+         var user = {
+             id: '',
+             firstName: '',
+             lastName: '',
+             email: '',
+             name: ' ',
+             userType: '',
+             roles: '',
+             championLevel: '',
+             userCategory: '',
+             userAdmin: ''
+         };
+     </script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link href="https://cloud.webtype.com/css/05cb80fc-3221-476f-983d-76dfa0b1370c.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://www.juniper.net/assets/style/font.css">
+     <link rel="stylesheet" href="https://apps.juniper.net/assets/public/css/material-icons-eebf8d575d.css">
+     <link rel="stylesheet" href="https://www.juniper.net/assets/styles/global-nav.css">
+     <link rel="stylesheet" type="text/css" href="https://apps.juniper.net/assets/public/css/global-2a46f01fd8.css">
+     <link rel="newest stylesheet" href="./feature-explorer/css/server-page.css" />
+     <script src="./feature-explorer/javascript/get_playbook.js"></script>
+ </head>
+
+ <body onload="get_playbooks()">
+     <ke-header app-name="HealthBot Server Sizing Calculator" is-protected="false" style="padding-top: 0px;"></ke-header>
+
+     <div id="light" class="white_content">
+         <div id="close1" style=" position:relative;text-align: right">
+             <a href="javascript:void(0)" id="close2" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'" style="text-align: right">
+                 <i class="fa fa-window-close" id="close-pop-up"></i>
+             </a>
+         </div>
+         <p>What is data size?</p>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;">Note: This is applicable only for playbooks that contains rules that uses sensor type as iAgent or SNMP</span></p>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;">&nbsp;</span></p>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;">Few playbooks have rules that use sensors of type iAgent (NETCONF) to retrieve data. iAgent sensors can be used when telemetry data is not available.</span></p>
+         <br>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;">When any of those playbooks are to be deployed, the size of the RPC response impacts the sizing.<br />By default it is considered as 100KB as the incoming RPC response size per interval for every iAgent-sensor. In the case of scale scenarios, users are expected to enter this data very carefully by inspecting the XML response they are expected to receiver per interval for the device group.</span></p>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;"><br />For Eg:if there are 2 iAgent sensor in a playbook default size is considered as 200KB.<br />In case of scale environment if the user knows that the xml response is 2MB per interval, please fill the value accordingly in KB.</span></p>
+     </div>
+     <div id="info_icon_div" class="white_content">
+         <div id="close1" style=" position:relative;text-align: right">
+
+             <a href="javascript:void(0)" id="close2" onclick="document.getElementById('info_icon_div').style.display='none';document.getElementById('fade').style.display='none'" style="text-align: right">
+                 <i class="fa fa-window-close" id="close-pop-up"></i>
+             </a>
+         </div>
+         <p>Healthbot Server Sizing Calculator</p>
+         <p>This is a tool to calculate the server configuration (vCPUs, RAM and Storage) required to deploy HealthBot for your network/use-case.</p>
+         <p><u>Important note:</u></p>
+         <p>The server sizing calculation for HealthBot depends on a number of parameters and varies on a case-by-case basis. This tool is a best effort to give you an approximate estimate on the server sizing. The accuracy of the results are highly dependent on the accuracy of your inputs. So please read the example below before you feed the inputs to the HealthBot Server Sizing Calculator.</p>
+         <p>&nbsp;</p>
+         <p>How to use this tool?</p>
+         <p>Using the tool is very simple. The quick steps are:</p>
+         <ol>
+             <li>Enter the number of devices in a device group.</li>
+             <li>Select the list of playbooks you would like to deploy on this device group.</li>
+             <li>Click "-&gt; Add" to add them to sizing chart.</li>
+             <li>Repeat the above steps for all the device groups you would like to monitor.</li>
+             <li>Refer to the Sizing Report to see the HealthBot server requirement (approximate estimate) to monitor your network.</li>
+         </ol>
+         <p>Example:</p>
+         <p>Let&rsquo;s say you have to monitor a network of 250 devices.</p>
+         <ul>
+             <li>All 250 devices to be monitored for system parameters.</li>
+             <li>100 devices to be monitored for BGP protocol.</li>
+             <li>50 devices to be monitored for Interface status.</li>
+             <li>100 devices to be monitored for VPN.</li>
+         </ul>
+
+         <p>&nbsp;</p>
+         <p>Steps to calculate the server sizing for the above requirement:</p>
+
+         <ol>
+             <li>Enter 100 in the &ldquo;Number of devices in a device group&rdquo; text box.</li>
+             <li>Select playbooks : &ldquo;system-kpis-playbook&rdquo; (as system parameters is required to be monitored for all the devices), &ldquo;bgp-session-stats-playbook&rdquo; and &ldquo;bgp-route-hijack-detection&rdquo;.</li>
+             <p>Note: When the &ldquo;system-kpis-playbook&rdquo; is selected, its data text box gets enabled. Please read the &ldquo;What is data size&rdquo; section to understand its importance and how to edit this.</p>
+             <li>Click &ldquo;-&gt; Add&rdquo;.</li>
+             <li>Enter 50 in the &ldquo;Number of devices in a device group&rdquo; text box.</li>
+             <li>Select playbooks: &ldquo;system-kpis-playbook&rdquo; and &ldquo;Interface-status-playbook&rdquo;.</li>
+             <li>Click &ldquo;-&gt; Add&rdquo;.</li>
+             <li>Enter 100 in the &ldquo;Number of devices in a device group&rdquo; text box.</li>
+             <li>Select playbooks: &ldquo;system-kpis-playbook&rdquo; and &ldquo;vpn-view&rdquo;.</li>
+             <li>Click &ldquo;-&gt; Add&rdquo;.</li>
+             <li>Sizing Report displays the required server configuration (approximate estimate) in - vCPUs, RAM and Storage. Also displays the number in terms of standard Healthbot servers required.</li>
+         </ol>
+         <p>What is data size?</p>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;">Note: This is applicable only for playbooks that contain rules that use sensor type as iAgent or SNMP.</span></p>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;">&nbsp;</span></p>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;">Few pre-defined playbooks have rules that use sensors of type iAgent &nbsp;(NETCONF) to retrieve data. iAgent sensors can be used when telemetry data is not available.</span></p>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;">When any of those playbooks are to be deployed, the size of the RPC response impacts the sizing.<br />By default it is considered as 100 KB as the incoming RPC response size per interval for every iAgent sensor. In case of scale scenarios, users are expected to fill this data very carefully by inspecting the XML response they are expected to receiver per interval for the device group.</span></p>
+         <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.5pt; font-family: 'Lato',sans-serif; color: black;"><br />For example, if there are 2 iAgent sensors in a playbook default size is considered as 200 KB.<br />In the case of scale environment if the user knows that the xml response is 2 MB per interval, please enter the value accordingly in KB.</span></p>
+         <p>&nbsp;</p>
+         <p>Sizing Chart:</p>
+         <p>This section displays the server requirement for every device group for the selected playbooks.</p>
+         <p>Rules/Fields/Triggers &ndash; Shows the consolidated number of fields, rules and triggers from the chosen playbooks. All of these parameters play a crucial role in server sizing.</p>
+         <p>&nbsp;</p>
+         <p>Sizing Report:</p>
+         <p>This section displays the overall server requirement (approximate estimate) to monitor all the device groups added to the sizing chart.</p>
+         <p>The left pane displays the consolidated requirement in terms of total number of devices to be monitored, total incoming data in case any iAgent sensors are used and the average number of playbooks per device group in action.</p>
+         <p>The right pane displays the consolidated server configuration in terms of total number of vCPUs, RAM and storage.</p>
+         <p>The final requirement is displayed in terms of number of standard servers required to deploy HealthBot.</p>
+     </div>
+
+
+
+     <div class="row" id="special_row">
+         <div class="col-3" id="col-3" style="display:none">
+
+             <a href="javascript:void(0)" onclick="document.getElementById('info_icon_div').style.display='block';document.getElementById('fade').style.display='block'">
+                 <i class="fas fa-info-circle"></i>
+             </a>
+
+             <h3>Calculate Yourself
+             </h3>
+
+             <form id="myform" class="conf_form" name="my_form" action="" autocomplete="off">
+                 <div class="form-group row">
+                     <label for="usr" class="col-9 col-form-label">Number of devices in a device group</label>
+                     <div class="col-2">
+                         <input type="text" class="usr" id="device" name="device" placeholder="Eg:50" style="margin-right:0px;" size="5">
+                     </div>
+                 </div>
+
+                 <label>
+                     <h4>Select Playbooks</h4>
+                 </label>
+
+                 <br>
+
+                 <div id="tableContainer" class="tableContainer option_table_div">
+                     <table class="scrollTable" id="option_table">
+                         <thead class="fixedHeader">
+                             <th style="width: 15%"></th>
+                             <th style="text-align: left;width: 55%">Default Playbook</th>
+                             <th style="text-align: center;width: 30%">Data (KB)
+                                 <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
+                                     <i class="fa fa-question-circle" id="myBtn"></i>
+                                 </a>
+                             </th>
+                         </thead>
+                         <tbody class="scrollContent">
+                         </tbody>
+                     </table>
+                 </div>
+
+
+                 <div id="tableContainer" class="tableContainer custom_table_div">
+                     <table class="scrollTable" id="custom_table">
+                         <thead class="fixedHeader">
+                             <th style="width: 15%"></th>
+                             <th style="text-align: left;width: 55%">Custom Playbook</th>
+                             <th style="text-align: center;;width: 30%">Data (KB)
+                                 <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
+                                     <i class="fa fa-question-circle" id="myBtn"></i>
+                                 </a>
+                             </th>
+                         </thead>
+                         <tbody class="scrollContent">
+                         </tbody>
+                     </table>
+
+                     <div class="remove-custom-div">
+                         <h5>No custom playbook uploaded</h5>
+
+                     </div>
+                 </div>
+                 <br>
+                 <input id="files" type="file" multiple />
+
+                 <label for="files" id="upload_files">
+
+                     <i class="fas fa-upload"></i>
+
+                     <span>&nbsp;&nbsp;Upload custom playbook&hellip;</span>
+
+                 </label>
+                 <br><br>
+                 <table style="width: 100%;margin-top:5%">
+                     <tr>
+                         <td style="padding:1px">
+                             <div class="Reset_Button" style="text-align: left;">
+                                 <button type="reset" class="button" id="btn2" data-tooltip="Reset the fields">
+                                     Reset
+                                 </button>
+                             </div>
+                         </td>
+                         <td style="padding:1px">
+                             <div class="Try_Button" style="text-align: left;">
+                                 <button type="button" class="button" id="btn3" value="Try" data-tooltip="Generate sample report">
+                                     Sample
+                                 </button>
+                             </div>
+                         </td>
+                         <td style="padding:1px">
+                             <div class="Calculate_Button" style="text-align: right;">
+                                 <button type="button" class="button" name="calculate" id="btn1" value="Submit">
+                                     <i class="fas fa-arrow-right"></i> Add
+                                 </button>
+                             </div>
+                         </td>
+                     </tr>
+                 </table>
+             </form>
+         </div>
+
+         <div class="col-9" id="sizing" style="display:none">
+             <button type="button" class="button" id="clear_button" style="display:none"><i class="fas fa-times"></i>
+                 Clear table</button>
+             <h3>Sizing Chart</h3>
+             <button type="button" class="button" style="display:none;" id="export_button"><i class="far fa-file-excel"></i>
+                 Export to csv</button>
+
+             <div id="tableContainer" class="tableContainer">
+                 <table class="size_table scrollTable">
+                     <thead class="fixedHeader">
+                         <tr>
+                             <th style="width:9%">Device Group</th>
+                             <th style="width:6% ">Count</th>
+                             <th style="width:9%">Data (KB)</th>
+                             <th style="width:40%">Playbooks</th>
+                             <th style="width:13%">Rules/Fields/Triggers</th>
+                             <th style="width:5%">vCPU</th>
+                             <th style="width:9%">RAM (GB)</th>
+                             <th style="width:9%">Storage (GB)</th>
+                         </tr>
+                     </thead>
+                     <tbody class="scrollContent" id="conf_table">
+                     </tbody>
+                 </table>
+
+             </div>
+
+             <div class="remove-div">
+                 <h3>Quick Steps </h3>
+                 <ol id="calculate_help">
+                     <li>&nbsp;Enter the number of devices in a device group</li>
+                     <li>&nbsp;Select the list of playbooks you would like to deploy on this device group</li>
+                     <li>&nbsp;Click "-&gt; Add" to add them to sizing chart</li>
+                     <li>&nbsp;Repeat the above steps for all the device groups you would like to monitor</li>
+                     <li>&nbsp;Refer to the Sizing Report to see HealthBot server requirement to monitor your network</li>
+                 </ol>
+                 <b>To generate a sample report, click the "Sample" button one or more times.</b>
+             </div>
+             <br>
+
+
+             <div class="summary" id="summary_div">
+                 <table style="display:none" id="summary">
+                     <thead>
+                         <th colspan="2" style="background-color: rgb(255,255,255)">
+                             <h3>Sizing Report</h3>
+                         </th>
+                     </thead>
+                     <tr style="text-align: center;background-color: #708810;color:white">
+                         <td colspan="2" style="padding:0.2vw">
+                             <h2>No. of standard server(s)<a href="https://www.juniper.net/documentation/en_US/healthbot/topics/reference/general/healthbot-prerequisites.html#hw-req" rel="noopener noreferrer" target="_blank"><sup><i class="fa fa-question-circle"></i></sup></a> required to deploy healthbot to monitor your network: &nbsp;&nbsp;&nbsp;<b>
+                                     <div id="server" style="display: inline">0</div>
+                                 </b></h2>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td style="width: 50%;padding: 0px;background-color:#dbdbdb">
+                             <table style="width: 100%;background-color:#dbdbdb">
+                                 <th colspan="2" style="background-color:#b7b9bc;color:black;text-align: center;padding:0.2vw;font-size: 1.4rem;font-weight: 400">Your Requirement
+                                 </th>
+                                 <tr>
+                                     <td style="width: 80%">Total number of devices
+                                     </td>
+                                     <td style="width: 20%">
+                                         <div id="total_device">0</div>
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td style="width: 80%">Total data size
+                                     </td>
+                                     <td>
+                                         <div id="total_data" style="display: inline">0</div> KB
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td style="width: 80%">Average number of playbooks per group
+                                     </td>
+                                     <td>
+                                         <div id="average_playbook">#</div>
+                                     </td>
+                                 </tr>
+                             </table>
+                         </td>
+                         <td style="width: 50%;padding: 0px;background-color:#f1f1f1">
+                             <table style="width: 100% ;color:black;background-color:#f1f1f1">
+                                 <th colspan="2" style=" color:black;background-color:#b7b9bc;text-align: center;padding:0.2vw;font-size: 1.4rem;font-weight: 400">Server Requirement
+                                 </th>
+
+                                 <tr>
+                                     <td style="width: 80%">Total number of vCPUs
+                                     </td>
+                                     <td>
+                                         <div id="total_core">0</div>
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td style="width: 80%">Total RAM</td>
+                                     <td>
+                                         <div id="total_ram" style="display: inline">0</div> GB
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td style="width: 70%">Total Storage</td>
+                                     <td>
+                                         <div id="total_storage" style="display: inline">0</div> GB
+                                     </td>
+                                 </tr>
+                             </table>
+                         </td>
+                     </tr>
+
+                 </table>
+             </div>
+         </div>
+     </div>
+
+<script>
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        if(isIE){
+                document.getElementById("special_row").innerHTML="";
+        }
+        else{
+                document.getElementById('col-3').style.display='block';
+                document.getElementById('sizing').style.display='block';
+        }
+</script>
+
+     <script>
+         window.jQuery || document.write('<script src="https://apps.juniper.net/assets/public/js/vendor/jquery.3.2.0.js"><\/script>');
+     </script>
+     <script type="text/javascript" src="https://apps.juniper.net/assets/public/js/vendor/moment.min.js"></script>
+     <script type="text/javascript" src="./feature-explorer/javascript/assets.js"></script>
+
+     <footer class="clearfix">
+         <div class="ke-footer-terms">
+             <div class="copyright">Copyright© 1999-<span class="currentyr">2019</span> Juniper Networks, Inc. All rights reserved.</div>
+             <div class="legallinks">
+                 <a href="http://www.juniper.net/us/en/privacy-policy/" target="_blank" class="footlink">Privacy Policy</a>
+                 <a href="http://www.juniper.net/us/en/legal-notices/" target="_blank" class="footlink">Legal Notices</a>
+             </div>
+         </div>
+     </footer>
+     <script type="text/javascript" src="./feature-explorer/javascript/jq/latest.js"></script>
+
+     <script type="text/javascript" src="./feature-explorer/javascript/jq/fe-plugins.js"></script>
+     <script type="text/javascript" src="./feature-explorer/javascript/jquery.confirm.min.js"></script>
+     <c:if test="false">
+         <script type="text/javascript" src="./feature-explorer/javascript/jq/chosen.jquery.min.js"></script>
+     </c:if>
+     <script type="text/javascript" src="./feature-explorer/javascript/jq/popover.min.js"></script>
+     <script type="text/javascript" src="./feature-explorer/javascript/static.js?ver=1.1.9"></script>
+     <script src="./feature-explorer/javascript/core.js"></script>
+     <script src="./feature-explorer/javascript/ram.js"></script>
+     <script src="./feature-explorer/javascript/storage.js"></script>
+     <script src="./feature-explorer/javascript/calculate.js"></script>
+     <script src="./feature-explorer/javascript/evaluation_get_json.js"></script>
+     <script src="./feature-explorer/javascript/table2csv.min.js"></script>
+     <script src="./feature-explorer/javascript/try.js"></script>
+     <script src="custom_playbook.js"></script>
+     <script>
+         $(document).ready(function() {
+             $('[data-toggle="tooltip"]').tooltip();
+         });
+
+         $(document).keypress(function(event) {
+             var keycode = (event.keyCode ? event.keyCode : event.which);
+             if (keycode == '13') {
+                 $('#btn1').click();
+             }
+         });
+         document.getElementById("summary_div").style.width = document.getElementById("conf_table").clientWidth + "px";
+
+         $(window).resize(function() {
+                     document.getElementById("summary_div").style.width = document.getElementById("conf_table").clientWidth + "px";
+         });
+     </script>
+     <a href="javascript:void(0)" id="close2" onclick="document.getElementById('info_icon_div').style.display='none';document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'" style="text-align: right">
+         <div id="fade" class="black_overlay" style="overflow: auto"></div>
+
+     </a>
+ </body>
+
+ </html>
