@@ -283,10 +283,7 @@ $(function() {
                 }
             }
             get_value_from_topic(json['configuration']['iceberg']['topic'], topic_rule_dict);
-            console.log(total_core);
             total_core = total_core + parseFloat((conf[0]/300.0).toFixed(3));
-            console.log(total_core);
-
             total_ram = total_ram + parseFloat((ram_need(Math.ceil(conf[0]))/300).toFixed(3));
             total_storage = total_storage + parseFloat((conf[1]/300).toFixed(3));
             var total_device = parseInt(document.querySelector('#total_device').textContent) + parseInt(device_count);
