@@ -283,23 +283,26 @@ $(function() {
                 }
             }
             get_value_from_topic(json['configuration']['iceberg']['topic'], topic_rule_dict);
+            console.log(total_core);
+            total_core = total_core + parseFloat((conf[0]/300.0).toFixed(3));
+            console.log(total_core);
 
-            total_core = total_core + Math.ceil(conf[0]);
-            total_ram = total_ram + parseInt(ram_need(Math.ceil(conf[0])));
-            total_storage = total_storage + parseInt(conf[1]);
+            total_ram = total_ram + parseFloat((ram_need(Math.ceil(conf[0]))/300).toFixed(3));
+            total_storage = total_storage + parseFloat((conf[1]/300).toFixed(3));
             var total_device = parseInt(document.querySelector('#total_device').textContent) + parseInt(device_count);
             var total_data = parseInt(document.querySelector('#total_data').textContent) + data;
             //
             document.querySelector('#total_device').textContent = total_device;
             document.querySelector('#total_data').textContent = total_data;
-            document.querySelector('#total_core').textContent = Math.max(6, total_core);
+            console.log(Math.ceil(total_core))
+            document.querySelector('#total_core').textContent = Math.max(6, Math.ceil(total_core));
             document.querySelector('#average_playbook').textContent = Math.ceil(playbook_count / (col_count + 1));
-            document.querySelector('#total_ram').textContent = Math.max(20, total_ram);
-            document.querySelector('#total_storage').textContent = Math.max(100, total_storage);
+            document.querySelector('#total_ram').textContent = Math.max(20, Math.ceil(total_ram));
+            document.querySelector('#total_storage').textContent = Math.max(100, Math.ceil(total_storage));
             document.querySelector('#server').textContent = Math.ceil(total_core / 128);
             $('.remove-div').css('display', 'none');
             var counts = no_of_rules + " / " + fields + " / " + triggers;
-            var table_entry = "<tr><td style=\"width:9%\">" + (++col_count) + "</td><td style=\"width:6%\">" + device_count + "</td><td style=\"width:9%\">" + data + "</td><td style=\"text-align:left;width:40%\">" + playbooks + "</td><td style=\"width:13%\">" + counts + "</td><td id=\"calculated_result\" style=\"width:5%\">" + Math.ceil(conf[0]) + "</td><td id=\"calculated_result\" style=\"width:9%\">" + parseInt(ram_need(Math.ceil(conf[0]))) + "</td><td id=\"calculated_result\" style=\"width:9%\">" + parseInt(conf[1]) + "</td></tr>";
+            var table_entry = "<tr><td style=\"width:9%\">" + (++col_count) + "</td><td style=\"width:6%\">" + device_count + "</td><td style=\"width:9%\">" + data + "</td><td style=\"text-align:left;width:40%\">" + playbooks + "</td><td style=\"width:13%\">" + counts + "</td><td id=\"calculated_result\" style=\"width:5%\">" + (conf[0]/300).toFixed(3) + "</td><td id=\"calculated_result\" style=\"width:9%\">" + (ram_need(Math.ceil(conf[0]))/300).toFixed(3) + "</td><td id=\"calculated_result\" style=\"width:9%\">" + (conf[1]/300).toFixed(3) + "</td></tr>";
             var d1 = document.getElementById('conf_table');
             $('#conf_table').append(table_entry);
             $("#summary").css({
